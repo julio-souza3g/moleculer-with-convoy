@@ -1,0 +1,35 @@
+{
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true
+  },
+  "compilerOptions": {
+    "allowJs": true,
+    "target": "es2017",
+    "module": "commonjs",
+    "lib": ["es2017", "dom"],
+    "esModuleInterop": true,
+    "declaration": true,
+    "outDir": "build",
+    "rootDir": "./",
+    "strict": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strictPropertyInitialization": false,
+    "noImplicitThis": false,
+    "baseUrl": "./",
+    "typeRoots": [ "./node_modules/@types", "./types" ],
+    "paths": {
+      "@services/*": [ "./services/*" ],
+    },
+  },
+  "include": [
+    "."
+  ],
+  "exclude": [
+    "build/**/*",
+    "node_modules/**/*",
+  ]
+}
