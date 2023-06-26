@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { Context, ServiceSchema } from 'moleculer';
-import axios from 'axios';
 import redisService from '@lib/redis';
+import convoy from './lib/convoy';
 
 import Events from './types/events';
 
@@ -31,7 +31,7 @@ const WebhookService: ServiceSchema = {
         } catch (error) {
           console.error('Failed to send event to Convoy:', error); // eslint-disable-line no-console
           console.log('Persisting data on redis for retry...'); // eslint-disable-line no-console
-          await this.persistDataOnRedis('test', payload);
+          await this.persistDataOnRedis(`${payload.event_type}-${Date.now()}`, payload);
           return {
             message: 'Failed to send event to Convoy :( Persisting data on redis for retry...',
           };
@@ -51,15 +51,7 @@ const WebhookService: ServiceSchema = {
         data,
       };
 
-      // create axios instance and send request to convoy
-      const axiosInstance = axios.create({
-        baseURL: process.env.CONVOY_API_URL,
-        headers: {
-          Authorization: `Bearer ${process.env.CONVOY_API_KEY}`,
-        },
-      });
-
-      const response = await axiosInstance.post(`${process.env.CONVOY_PROJECT_ID}/events`, eventData);
+      const response = await convoy.post(`${process.env.CONVOY_PROJECT_ID}/events`, eventData);
       return response;
     },
 
