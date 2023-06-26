@@ -39,3 +39,8 @@ Use default credentials:
 - Init webhook service with `npm run dev:webhook`
 
 Server is running at [`localhost:4000/`](http://localhost:4000/).
+
+## 🚀 Run Load Test script
+
+- Tool used: [`K6 Load testing`](https://k6.io/).
+- Run the script with `k6 run src/scripts/loadTest.ts`
