@@ -5,8 +5,8 @@ export default [{
   path: '/api/webhook',
 
   aliases: {
-
     // webhook
     'GET /': 'webhook.hello',
+    'POST /': 'webhook.send',
   },
 }];

@@ -23,6 +23,7 @@
     "typeRoots": [ "./node_modules/@types", "./types" ],
     "paths": {
       "@services/*": [ "./services/*" ],
+      "@lib/*": [ "./lib/*" ],
     },
   },
   "include": [
