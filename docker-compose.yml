@@ -7,5 +7,14 @@ services:
     volumes:
       - redis-data:/data
     command: redis-server --appendonly yes
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - '5682:5672'
+      - '15682:15672'
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
 volumes:
   redis-data:
+  rabbitmq_data:

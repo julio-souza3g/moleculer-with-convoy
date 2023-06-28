@@ -1,4 +1,8 @@
 import GatewayService from './gateway.service';
-import Runner from '../../runner';
+import { Runner, RunnerOptions } from '../../runner';
 
-new Runner(GatewayService).start();
+const opts: RunnerOptions = {
+  disableChannelsMiddleware: true,
+};
+
+new Runner(GatewayService, opts).start();

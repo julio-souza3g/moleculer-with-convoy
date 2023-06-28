@@ -9,6 +9,17 @@ const WebhookService: ServiceSchema = {
   name: 'webhook',
 
   /**
+   * Moleculer Channels use rabbitmq adapter and queues are automatically created by it
+   * @see https://github.com/moleculerjs/moleculer-channels
+   */
+
+  channels: {
+    'process.message': async function processMessage(payload:any) {
+      console.log('Received event from API:', payload); // eslint-disable-line no-console
+    },
+  },
+
+  /**
    * Actions
    */
   actions: {
