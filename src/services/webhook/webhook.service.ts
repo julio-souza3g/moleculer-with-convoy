@@ -1,9 +1,6 @@
 import 'dotenv/config';
-import { Context, ServiceSchema } from 'moleculer';
-import redisService from '@lib/redis';
-import convoy from './lib/convoy';
-
-import Events from './types/events';
+import axios from 'axios';
+import { Context, ServiceSchema, Errors } from 'moleculer';
 
 const WebhookService: ServiceSchema = {
   name: 'webhook',
@@ -14,8 +11,8 @@ const WebhookService: ServiceSchema = {
    */
 
   channels: {
-    'process.message': async function processMessage(payload:any) {
-      console.log('Received event from API:', payload); // eslint-disable-line no-console
+    'process.event': async function processEvent(payload:any) {
+      await this.sendEventToCustomer(payload);
     },
   },
 
@@ -32,21 +29,8 @@ const WebhookService: ServiceSchema = {
     send: {
       async handler(ctx: Context) {
         const payload = ctx.params as any;
-
-        try {
-          const response = await this.sendEvent(payload.data, payload.event_type);
-          console.log('Event sent to Convoy.', response); // eslint-disable-line no-console
-          return {
-            message: 'Event sent to Convoy :)',
-          };
-        } catch (error) {
-          console.error('Failed to send event to Convoy:', error); // eslint-disable-line no-console
-          console.log('Persisting data on redis for retry...'); // eslint-disable-line no-console
-          await this.persistDataOnRedis(`${payload.event_type}-${Date.now()}`, payload);
-          return {
-            message: 'Failed to send event to Convoy :( Persisting data on redis for retry...',
-          };
-        }
+        await this.sendEventToCustomer(payload);
+        return 'Event sent to customer';
       },
     },
   },
@@ -55,19 +39,13 @@ const WebhookService: ServiceSchema = {
    * Methods
    */
   methods: {
-    async sendEvent(data: any, eventType: Events) {
-      const eventData = {
-        event_type: eventType,
-        endpoint_id: process.env.WEBHOOK_ENDPOINT_ID,
-        data,
-      };
-
-      const response = await convoy.post(`${process.env.CONVOY_PROJECT_ID}/events`, eventData);
-      return response;
-    },
-
-    async persistDataOnRedis(key: string, data: any) {
-      await redisService.addToRedis(key, data);
+    async sendEventToCustomer(payload: any) {
+      try {
+        await axios.post(`${process.env.WEBHOOK_URL}`, payload);
+      } catch (error) {
+        console.error(error); // eslint-disable-line no-console
+        throw new Errors.MoleculerError('Error sending event to customer', 500);
+      }
     },
   },
 };

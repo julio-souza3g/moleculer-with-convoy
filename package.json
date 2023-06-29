@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "nodemon -e ts,js -r tsconfig-paths/register -r ts-node --config ./src/services/$SERVICE/nodemon.json ./src/services/$SERVICE/main.ts",
     "dev:gateway": "SERVICE=gateway npm run dev",
-    "dev:webhook": "SERVICE=webhook npm run dev"
+    "dev:webhook": "SERVICE=webhook npm run dev",
+    "dev:auth": "SERVICE=auth npm run dev"
   },
   "keywords": [],
   "author": "",
@@ -18,10 +19,13 @@
     "dotenv": "^16.3.1",
     "ioredis": "^5.3.2",
     "k6": "^0.0.0",
+    "knex": "^2.4.2",
     "lodash": "^4.17.21",
     "moleculer": "^0.14.29",
     "moleculer-web": "^0.10.5",
+    "mysql2": "^3.4.2",
     "nats": "^2.15.1",
+    "objection": "^3.0.1",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0"
   },

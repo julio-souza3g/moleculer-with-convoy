@@ -11,12 +11,12 @@ const config = async () => {
     logger: true,
     logLevel: 'info',
 
-    transporter: process.env.TRANSPORTER_URL || 'redis://localhost:6379',
+    transporter: process.env.TRANSPORTER_URL || 'redis://localhost:6383',
 
     cacher: {
       type: 'Redis',
       options: {
-        redis: process.env.TRANSPORTER_URL || 'redis://localhost:6379',
+        redis: process.env.TRANSPORTER_URL || 'redis://localhost:6383',
         maxParamsLength: 60,
       },
     },

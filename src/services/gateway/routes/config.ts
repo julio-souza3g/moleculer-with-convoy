@@ -1,6 +1,3 @@
-/**
- * Default config for any private route
- */
 export default {
   path: '/api',
   mappingPolicy: 'restrict',

@@ -1,0 +1,13 @@
+{
+  "ignore": [
+    ".git",
+    "node_modules",
+    "node_modules/**/node_modules"
+  ],
+  "watch": [
+    "models/",
+    "services/auth/",
+    "services/*.ts",
+    "tsconfig.json"
+  ]
+}
