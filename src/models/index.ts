@@ -15,3 +15,6 @@ UserModel.knex(connection);
 
 // export all models
 export const User = UserModel;
+
+// export connection
+export const db = connection;

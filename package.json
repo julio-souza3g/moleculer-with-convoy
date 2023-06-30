@@ -30,6 +30,7 @@
     "tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {
+    "@types/amqplib": "^0.10.1",
     "@types/axios": "^0.14.0",
     "@types/cookie-parser": "^1.4.3",
     "@types/k6": "^0.45.0",
